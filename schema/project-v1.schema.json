@@ -1,0 +1,1098 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "number",
+      "const": 1
+    },
+    "engineVersion": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "tempo": {
+      "type": "number",
+      "minimum": 40,
+      "maximum": 240
+    },
+    "key": {
+      "type": "string",
+      "enum": [
+        "C",
+        "C#",
+        "Db",
+        "D",
+        "D#",
+        "Eb",
+        "E",
+        "F",
+        "F#",
+        "Gb",
+        "G",
+        "G#",
+        "Ab",
+        "A",
+        "A#",
+        "Bb",
+        "B"
+      ]
+    },
+    "scale": {
+      "type": "string",
+      "enum": [
+        "major",
+        "minor",
+        "dorian",
+        "harmonic_minor",
+        "mixolydian",
+        "phrygian"
+      ]
+    },
+    "timeSignature": {
+      "type": "string",
+      "enum": [
+        "4/4",
+        "3/4",
+        "6/8"
+      ]
+    },
+    "bars": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 128
+    },
+    "styleProfile": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "brief": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "gameplayPurpose": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "genre": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "mood": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "emotionalDirection": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "tempo": {
+          "type": "number",
+          "minimum": 40,
+          "maximum": 240
+        },
+        "key": {
+          "type": "string",
+          "enum": [
+            "C",
+            "C#",
+            "Db",
+            "D",
+            "D#",
+            "Eb",
+            "E",
+            "F",
+            "F#",
+            "Gb",
+            "G",
+            "G#",
+            "Ab",
+            "A",
+            "A#",
+            "Bb",
+            "B"
+          ]
+        },
+        "scale": {
+          "type": "string",
+          "enum": [
+            "major",
+            "minor",
+            "dorian",
+            "harmonic_minor",
+            "mixolydian",
+            "phrygian"
+          ]
+        },
+        "timeSignature": {
+          "type": "string",
+          "enum": [
+            "4/4",
+            "3/4",
+            "6/8"
+          ]
+        },
+        "bars": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 128
+        },
+        "styleProfile": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "hardware": {
+          "type": "string",
+          "enum": [
+            "snes",
+            "mega_drive",
+            "pc98",
+            "fm_towns",
+            "fantasy",
+            "action",
+            "modern_retro"
+          ]
+        },
+        "requiredInstruments": {
+          "maxItems": 7,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "pulse",
+              "triangle",
+              "saw",
+              "fm_ep",
+              "fm_bell",
+              "wavetable",
+              "sample",
+              "noise",
+              "bass",
+              "pad",
+              "filtered_lead"
+            ]
+          }
+        },
+        "prohibitedElements": {
+          "default": [],
+          "maxItems": 5,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "drums",
+              "arpeggio",
+              "counter_melody",
+              "effects",
+              "chromatic_notes"
+            ]
+          }
+        },
+        "intensityCurve": {
+          "minItems": 1,
+          "maxItems": 128,
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "sections": {
+          "minItems": 1,
+          "maxItems": 32,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "intro",
+                  "main_loop",
+                  "breakdown",
+                  "escalation",
+                  "boss_phase",
+                  "outro",
+                  "stinger"
+                ]
+              },
+              "startBar": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "bars": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              },
+              "intensity": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "activeParts": {
+                "maxItems": 7,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "melody",
+                    "counter_melody",
+                    "bass",
+                    "harmony",
+                    "drums",
+                    "arpeggio",
+                    "effects"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "type",
+              "startBar",
+              "bars",
+              "intensity",
+              "activeParts"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "loop": {
+          "type": "boolean"
+        },
+        "interpretation": {
+          "maxItems": 30,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 300
+          }
+        }
+      },
+      "required": [
+        "title",
+        "text",
+        "gameplayPurpose",
+        "genre",
+        "mood",
+        "emotionalDirection",
+        "tempo",
+        "key",
+        "scale",
+        "timeSignature",
+        "bars",
+        "styleProfile",
+        "hardware",
+        "requiredInstruments",
+        "prohibitedElements",
+        "intensityCurve",
+        "loop",
+        "interpretation"
+      ],
+      "additionalProperties": false
+    },
+    "motifs": {
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "object",
+          "properties": {
+            "ticks": {
+              "type": "integer",
+              "minimum": 120,
+              "maximum": 15360
+            },
+            "events": {
+              "minItems": 1,
+              "maxItems": 128,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "offset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "degree": {
+                    "type": "integer",
+                    "minimum": -21,
+                    "maximum": 21
+                  },
+                  "velocity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 127
+                  }
+                },
+                "required": [
+                  "offset",
+                  "duration",
+                  "degree",
+                  "velocity"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "ticks",
+            "events"
+          ],
+          "additionalProperties": false
+        },
+        "answer": {
+          "type": "object",
+          "properties": {
+            "ticks": {
+              "type": "integer",
+              "minimum": 120,
+              "maximum": 15360
+            },
+            "events": {
+              "minItems": 1,
+              "maxItems": 128,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "offset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "degree": {
+                    "type": "integer",
+                    "minimum": -21,
+                    "maximum": 21
+                  },
+                  "velocity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 127
+                  }
+                },
+                "required": [
+                  "offset",
+                  "duration",
+                  "degree",
+                  "velocity"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "ticks",
+            "events"
+          ],
+          "additionalProperties": false
+        },
+        "bass": {
+          "type": "object",
+          "properties": {
+            "ticks": {
+              "type": "integer",
+              "minimum": 120,
+              "maximum": 15360
+            },
+            "events": {
+              "minItems": 1,
+              "maxItems": 128,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "offset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "degree": {
+                    "type": "integer",
+                    "minimum": -21,
+                    "maximum": 21
+                  },
+                  "velocity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 127
+                  }
+                },
+                "required": [
+                  "offset",
+                  "duration",
+                  "degree",
+                  "velocity"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "ticks",
+            "events"
+          ],
+          "additionalProperties": false
+        },
+        "arpeggio": {
+          "type": "object",
+          "properties": {
+            "ticks": {
+              "type": "integer",
+              "minimum": 120,
+              "maximum": 15360
+            },
+            "events": {
+              "minItems": 1,
+              "maxItems": 128,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "offset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "degree": {
+                    "type": "integer",
+                    "minimum": -21,
+                    "maximum": 21
+                  },
+                  "velocity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 127
+                  }
+                },
+                "required": [
+                  "offset",
+                  "duration",
+                  "degree",
+                  "velocity"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "ticks",
+            "events"
+          ],
+          "additionalProperties": false
+        },
+        "rhythmic": {
+          "type": "object",
+          "properties": {
+            "ticks": {
+              "type": "integer",
+              "minimum": 120,
+              "maximum": 15360
+            },
+            "events": {
+              "minItems": 1,
+              "maxItems": 128,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "offset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "degree": {
+                    "type": "integer",
+                    "minimum": -21,
+                    "maximum": 21
+                  },
+                  "velocity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 127
+                  }
+                },
+                "required": [
+                  "offset",
+                  "duration",
+                  "degree",
+                  "velocity"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "ticks",
+            "events"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "primary",
+        "answer",
+        "bass",
+        "arpeggio",
+        "rhythmic"
+      ],
+      "additionalProperties": false
+    },
+    "harmony": {
+      "minItems": 1,
+      "maxItems": 128,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "bar": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "degree": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6
+          },
+          "pitches": {
+            "minItems": 2,
+            "maxItems": 5,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            }
+          },
+          "inversion": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2
+          },
+          "suspension": {
+            "type": "boolean"
+          },
+          "borrowed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "bar",
+          "degree",
+          "pitches",
+          "inversion",
+          "suspension",
+          "borrowed"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "tracks": {
+      "minItems": 1,
+      "maxItems": 7,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z_]{1,32}$"
+          },
+          "part": {
+            "type": "string",
+            "enum": [
+              "melody",
+              "counter_melody",
+              "bass",
+              "harmony",
+              "drums",
+              "arpeggio",
+              "effects"
+            ]
+          },
+          "stem": {
+            "type": "string",
+            "enum": [
+              "lead",
+              "harmony",
+              "bass",
+              "drums",
+              "effects",
+              "ambience"
+            ]
+          },
+          "instrument": {
+            "type": "object",
+            "properties": {
+              "wave": {
+                "type": "string",
+                "enum": [
+                  "pulse",
+                  "triangle",
+                  "saw",
+                  "fm_ep",
+                  "fm_bell",
+                  "wavetable",
+                  "sample",
+                  "noise",
+                  "bass",
+                  "pad",
+                  "filtered_lead"
+                ]
+              },
+              "duty": {
+                "default": 0.5,
+                "type": "number",
+                "minimum": 0.05,
+                "maximum": 0.95
+              },
+              "attack": {
+                "default": 0.008,
+                "type": "number",
+                "minimum": 0.001,
+                "maximum": 2
+              },
+              "decay": {
+                "default": 0.12,
+                "type": "number",
+                "minimum": 0.001,
+                "maximum": 3
+              },
+              "sustain": {
+                "default": 0.55,
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "release": {
+                "default": 0.09,
+                "type": "number",
+                "minimum": 0.001,
+                "maximum": 3
+              },
+              "vibrato": {
+                "default": 5,
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "vibratoHz": {
+                "default": 5,
+                "type": "number",
+                "minimum": 0.1,
+                "maximum": 15
+              },
+              "portamento": {
+                "default": 0,
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "lowpass": {
+                "default": 9000,
+                "type": "number",
+                "minimum": 100,
+                "maximum": 22000
+              },
+              "highpass": {
+                "default": 0,
+                "type": "number",
+                "minimum": 0,
+                "maximum": 4000
+              },
+              "delay": {
+                "default": 0.08,
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.5
+              },
+              "reverb": {
+                "default": 0.08,
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.5
+              },
+              "chorus": {
+                "default": 0,
+                "type": "number",
+                "minimum": 0,
+                "maximum": 0.4
+              },
+              "bitDepth": {
+                "default": 16,
+                "type": "integer",
+                "minimum": 4,
+                "maximum": 16
+              },
+              "sampleHold": {
+                "default": 1,
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 12
+              },
+              "range": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 127
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 127
+                  }
+                ],
+                "items": false,
+                "minItems": 2,
+                "maxItems": 2
+              }
+            },
+            "required": [
+              "wave",
+              "duty",
+              "attack",
+              "decay",
+              "sustain",
+              "release",
+              "vibrato",
+              "vibratoHz",
+              "portamento",
+              "lowpass",
+              "highpass",
+              "delay",
+              "reverb",
+              "chorus",
+              "bitDepth",
+              "sampleHold",
+              "range"
+            ],
+            "additionalProperties": false
+          },
+          "notes": {
+            "maxItems": 20000,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tick": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 250000
+                },
+                "duration": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 250000
+                },
+                "pitch": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127
+                },
+                "velocity": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 127
+                },
+                "slide": {
+                  "default": 0,
+                  "type": "number",
+                  "minimum": -24,
+                  "maximum": 24
+                },
+                "chromatic": {
+                  "default": false,
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "tick",
+                "duration",
+                "pitch",
+                "velocity",
+                "slide",
+                "chromatic"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "volume": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "pan": {
+            "type": "number",
+            "minimum": -1,
+            "maximum": 1
+          },
+          "midiProgram": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 127
+          }
+        },
+        "required": [
+          "id",
+          "part",
+          "stem",
+          "instrument",
+          "notes",
+          "volume",
+          "pan",
+          "midiProgram"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "arrangement": {
+      "type": "object",
+      "properties": {
+        "sections": {
+          "minItems": 1,
+          "maxItems": 32,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "intro",
+                  "main_loop",
+                  "breakdown",
+                  "escalation",
+                  "boss_phase",
+                  "outro",
+                  "stinger"
+                ]
+              },
+              "startBar": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "bars": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              },
+              "intensity": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "activeParts": {
+                "maxItems": 7,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "melody",
+                    "counter_melody",
+                    "bass",
+                    "harmony",
+                    "drums",
+                    "arpeggio",
+                    "effects"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "type",
+              "startBar",
+              "bars",
+              "intensity",
+              "activeParts"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "swing": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.45
+        }
+      },
+      "required": [
+        "sections",
+        "swing"
+      ],
+      "additionalProperties": false
+    },
+    "renderSettings": {
+      "type": "object",
+      "properties": {
+        "sampleRate": {
+          "default": 32000,
+          "anyOf": [
+            {
+              "type": "number",
+              "const": 8000
+            },
+            {
+              "type": "number",
+              "const": 16000
+            },
+            {
+              "type": "number",
+              "const": 22050
+            },
+            {
+              "type": "number",
+              "const": 32000
+            },
+            {
+              "type": "number",
+              "const": 44100
+            },
+            {
+              "type": "number",
+              "const": 48000
+            }
+          ]
+        },
+        "peakDb": {
+          "default": -1.2,
+          "type": "number",
+          "minimum": -12,
+          "maximum": -0.5
+        },
+        "seamFadeMs": {
+          "default": 3,
+          "type": "number",
+          "minimum": 1,
+          "maximum": 10
+        }
+      },
+      "required": [
+        "sampleRate",
+        "peakDb",
+        "seamFadeMs"
+      ],
+      "additionalProperties": false
+    },
+    "locks": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "enum": [
+          "melody",
+          "counter_melody",
+          "bass",
+          "harmony",
+          "drums",
+          "arpeggio",
+          "effects",
+          "arrangement"
+        ]
+      },
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      }
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "parentHash": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string",
+          "maxLength": 200
+        }
+      },
+      "required": [
+        "operation"
+      ],
+      "additionalProperties": false
+    },
+    "validation": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {}
+    }
+  },
+  "required": [
+    "version",
+    "engineVersion",
+    "title",
+    "seed",
+    "tempo",
+    "key",
+    "scale",
+    "timeSignature",
+    "bars",
+    "styleProfile",
+    "brief",
+    "motifs",
+    "harmony",
+    "tracks",
+    "arrangement",
+    "renderSettings",
+    "locks",
+    "revision",
+    "provenance",
+    "validation"
+  ],
+  "additionalProperties": false
+}

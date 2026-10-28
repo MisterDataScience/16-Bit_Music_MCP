@@ -1,0 +1,42 @@
+name: Build, musical checks and offline runtime
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - name: Install pinned dependencies and retain local cache
+        run: npm ci --cache .npm-cache --ignore-scripts --no-audit --no-fund
+      - name: Prove cached dependencies reinstall offline
+        run: npm ci --offline --cache .npm-cache --ignore-scripts --no-audit --no-fund
+      - run: npm run build
+      - run: npm test
+      - run: npm run verify:offline
+      - run: npm run bundle:offline
+      - name: Render full example handovers
+        run: |
+          node dist/cli.js compose --brief examples/frozen-village.brief.json --seed 18427 --out output/frozen-village
+          node dist/cli.js compose --brief examples/boss-battle.brief.json --seed 831 --out output/boss-battle
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synod-music-node-${{ matrix.node }}
+          path: |
+            artifacts/synod-music-0.1.0/
+            artifacts/offline-report.json
+            output/frozen-village/
+            output/boss-battle/

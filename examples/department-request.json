@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "requestId": "studio-winter-village-001",
+  "from": "game_studio",
+  "to": "music",
+  "brief": {
+    "title": "The Last Light in the Snow",
+    "gameplayPurpose": "Exploration of the abandoned winter village",
+    "styleProfile": "lonely_frozen_village",
+    "hardware": "snes",
+    "tempo": 76,
+    "key": "D",
+    "scale": "dorian",
+    "bars": 16,
+    "prohibitedElements": ["drums"],
+    "intensityCurve": [0.35, 0.6, 0.3, 0.7]
+  },
+  "seed": 18427,
+  "deliverable": "export_package",
+  "reviewBy": ["sound", "playtest"]
+}

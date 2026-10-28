@@ -1,0 +1,17 @@
+{
+  "title": "The Last Light in the Snow",
+  "text": "A lonely frozen village at 76 BPM in D Dorian, 16 bars. No drums.",
+  "gameplayPurpose": "Quiet exploration of an abandoned winter settlement",
+  "genre": "melancholic village",
+  "mood": "lonely, fragile and faintly hopeful",
+  "emotionalDirection": "Keep the principal motif recognisable as the layers change.",
+  "styleProfile": "lonely_frozen_village",
+  "hardware": "snes",
+  "tempo": 76,
+  "key": "D",
+  "scale": "dorian",
+  "bars": 16,
+  "intensityCurve": [0.35, 0.6, 0.3, 0.7],
+  "prohibitedElements": ["drums"],
+  "requiredInstruments": ["fm_bell"]
+}

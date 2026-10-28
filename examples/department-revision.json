@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "requestId": "playtest-winter-village-revision-002",
+  "from": "playtest",
+  "to": "music",
+  "source": "approved/winter-village-r1/project.json",
+  "manifest": "approved/winter-village-r1/manifest.json",
+  "observation": {
+    "gameplayEvent": "Entering the empty square",
+    "bar": 9,
+    "expected": "The lead remains recognisable while the accompaniment becomes thinner",
+    "observed": "The accompaniment masks quiet footsteps"
+  },
+  "lockParts": ["melody", "harmony"],
+  "variation": {
+    "seed": 18428,
+    "preserve": ["primary_motif", "chord_progression", "tempo", "key", "instrumentation"],
+    "change": ["bass", "arrangement"]
+  },
+  "exportDirectory": "approved/winter-village-r2"
+}

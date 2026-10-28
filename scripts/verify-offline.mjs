@@ -1,0 +1,31 @@
+import { cp, mkdir, mkdtemp, writeFile, readFile, access } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+
+if (process.platform !== 'linux') throw new Error('This strict network-blocking check needs Linux and a C compiler. Run it in Linux CI or a VM. Normal portable runtime also supports Windows and macOS.');
+const temporary = await mkdtemp(path.join(process.env.SYNOD_OFFLINE_TEST_ROOT ?? tmpdir(), 'synod-offline-'));
+const portable = path.join(temporary, 'portable');
+await mkdir(portable);
+await cp('dist', portable, { recursive: true });
+await writeFile(path.join(portable, 'package.json'), '{"type":"module"}\n');
+await assert.rejects(access(path.join(portable, 'node_modules')));
+assert.deepEqual(JSON.parse(await readFile(path.join(portable, 'build-manifest.json'), 'utf8')).externalRuntimePackages, []);
+const run = (command, args, options = {}) => {
+  const result = spawnSync(command, args, { cwd: portable, encoding: 'utf8', timeout: 120000, maxBuffer: 4_000_000, ...options });
+  if (result.error || result.status !== 0) throw new Error(`${command} failed: ${result.error ?? result.stderr ?? result.stdout}`);
+  return result.stdout;
+};
+const launcher = path.join(temporary, 'deny-network');
+run(process.env.CC ?? 'cc', ['-O2', '-Wall', '-Wextra', path.resolve('scripts/deny-network.c'), '-o', launcher]);
+const probe = `import net from 'node:net'; await Promise.all(['127.0.0.1','::1'].map(host=>new Promise((resolve,reject)=>{const socket=net.connect({host,port:9});socket.on('connect',()=>reject(new Error('network allowed')));socket.on('error',e=>{if(e.code!=='EACCES'&&e.code!=='EPERM')reject(e);else resolve();});})));console.log('IPv4 and IPv6 internet sockets denied by kernel');`;
+assert.match(run(launcher, [process.execPath, '--input-type=module', '-e', probe]), /denied by kernel/);
+const cliResult = JSON.parse(run(launcher, [process.execPath, path.join(portable, 'cli.js'), 'self-test', '--out', path.join(temporary, 'audio')]));
+assert.equal(cliResult.report.status, 'passed');
+const mcpResult = JSON.parse(run(launcher, [process.execPath, path.join(portable, 'mcp-smoke.js'), path.join(temporary, 'mcp')]));
+assert.equal(mcpResult.status, 'passed');
+await mkdir('artifacts', { recursive: true });
+const report = { status: 'passed', network: 'Linux seccomp denies AF_INET and AF_INET6 socket creation in Node and its descendants', socketProbe: 'EACCES/EPERM verified', nodeModulesPresent: false, portableDirectory: portable, cli: cliResult.report.status, mcp: mcpResult, node: process.version };
+await writeFile('artifacts/offline-report.json', JSON.stringify(report, null, 2) + '\n');
+console.log(JSON.stringify(report, null, 2));

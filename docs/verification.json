@@ -1,0 +1,64 @@
+{
+  "engineVersion": "0.1.0",
+  "verifiedOn": "2026-10-28",
+  "runtime": "Node.js v24.22.1 on Linux x64",
+  "typecheck": "passed",
+  "tests": {
+    "passed": 17,
+    "failed": 0
+  },
+  "cachedOfflineReinstallation": "passed",
+  "networkBlockedRuntime": {
+    "status": "passed",
+    "network": "Linux seccomp denies AF_INET and AF_INET6 socket creation in Node and its descendants",
+    "socketProbe": "EACCES/EPERM verified",
+    "nodeModulesPresent": false,
+    "cli": "passed",
+    "mcp": {
+      "status": "passed",
+      "tools": 17,
+      "roundTrip": true,
+      "locks": true,
+      "traversalRejected": true,
+      "stderr": ""
+    },
+    "node": "v24.22.1"
+  },
+  "examplePackages": {
+    "frozen-village": {
+      "status": "passed",
+      "scope": "exported_assets",
+      "bars": 16,
+      "tempo": 76,
+      "key": "D dorian",
+      "stems": 4,
+      "peak_level": -1.2,
+      "rms_level": -17.19,
+      "frames": 1616842,
+      "duration_seconds": 50.5263125,
+      "loop": "clean",
+      "locked_parts_preserved": true,
+      "checks_passed": 30
+    },
+    "boss-battle": {
+      "status": "passed",
+      "scope": "exported_assets",
+      "bars": 16,
+      "tempo": 168,
+      "key": "E harmonic_minor",
+      "stems": 5,
+      "peak_level": -1.2,
+      "rms_level": -15.99,
+      "frames": 731429,
+      "duration_seconds": 22.85715625,
+      "loop": "clean",
+      "locked_parts_preserved": true,
+      "checks_passed": 30
+    }
+  },
+  "limits": [
+    "No human listening assessment was performed",
+    "No live Synod scheduler adapter was exercised",
+    "Node.js 22 is covered by the included CI matrix, not this local verification record"
+  ]
+}

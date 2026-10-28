@@ -1,0 +1,11 @@
+{
+  "title": "Iron Regent",
+  "gameplayPurpose": "Loop under a boss encounter with rising phase intensity",
+  "styleProfile": "tense_boss_battle",
+  "hardware": "mega_drive",
+  "tempo": 168,
+  "key": "E",
+  "scale": "harmonic_minor",
+  "bars": 16,
+  "intensityCurve": [0.6, 0.75, 0.5, 1]
+}

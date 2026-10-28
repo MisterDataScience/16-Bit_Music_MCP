@@ -147,3 +147,10 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Local music assets and install cache
+output/
+artifacts/
+.npm-cache/
+*.wav
+*.mid

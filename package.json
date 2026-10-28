@@ -1,0 +1,28 @@
+{
+  "name": "synod-16bit-music-mcp",
+  "version": "0.1.0",
+  "description": "Offline-first MCP-controlled composition and rendering for editable 16-bit game music",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": { "node": ">=22" },
+  "bin": { "synod-music": "dist/cli.js", "synod-music-mcp": "dist/server.js" },
+  "exports": { ".": "./dist/engine.js" },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && node scripts/build.mjs",
+    "test": "node --test --test-concurrency=1 test/*.test.mjs",
+    "self-test": "node dist/cli.js self-test",
+    "verify:offline": "node scripts/verify-offline.mjs",
+    "bundle:offline": "node scripts/bundle-offline.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.1",
+    "esbuild": "0.25.12",
+    "typescript": "5.9.3"
+  }
+}

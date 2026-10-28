@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "text": {
+      "default": "",
+      "type": "string",
+      "maxLength": 4000
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "gameplayPurpose": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "genre": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "mood": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "emotionalDirection": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "tempo": {
+      "type": "number",
+      "minimum": 40,
+      "maximum": 240
+    },
+    "key": {
+      "type": "string",
+      "enum": [
+        "C",
+        "C#",
+        "Db",
+        "D",
+        "D#",
+        "Eb",
+        "E",
+        "F",
+        "F#",
+        "Gb",
+        "G",
+        "G#",
+        "Ab",
+        "A",
+        "A#",
+        "Bb",
+        "B"
+      ]
+    },
+    "scale": {
+      "type": "string",
+      "enum": [
+        "major",
+        "minor",
+        "dorian",
+        "harmonic_minor",
+        "mixolydian",
+        "phrygian"
+      ]
+    },
+    "timeSignature": {
+      "default": "4/4",
+      "type": "string",
+      "enum": [
+        "4/4",
+        "3/4",
+        "6/8"
+      ]
+    },
+    "bars": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 128
+    },
+    "styleProfile": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "hardware": {
+      "type": "string",
+      "enum": [
+        "snes",
+        "mega_drive",
+        "pc98",
+        "fm_towns",
+        "fantasy",
+        "action",
+        "modern_retro"
+      ]
+    },
+    "requiredInstruments": {
+      "default": [],
+      "maxItems": 7,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "pulse",
+          "triangle",
+          "saw",
+          "fm_ep",
+          "fm_bell",
+          "wavetable",
+          "sample",
+          "noise",
+          "bass",
+          "pad",
+          "filtered_lead"
+        ]
+      }
+    },
+    "prohibitedElements": {
+      "default": [],
+      "maxItems": 5,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "drums",
+          "arpeggio",
+          "counter_melody",
+          "effects",
+          "chromatic_notes"
+        ]
+      }
+    },
+    "intensityCurve": {
+      "minItems": 1,
+      "maxItems": 128,
+      "type": "array",
+      "items": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      }
+    },
+    "sections": {
+      "minItems": 1,
+      "maxItems": 32,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "intro",
+              "main_loop",
+              "breakdown",
+              "escalation",
+              "boss_phase",
+              "outro",
+              "stinger"
+            ]
+          },
+          "startBar": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "bars": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "intensity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "activeParts": {
+            "maxItems": 7,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "melody",
+                "counter_melody",
+                "bass",
+                "harmony",
+                "drums",
+                "arpeggio",
+                "effects"
+              ]
+            }
+          }
+        },
+        "required": [
+          "type",
+          "startBar",
+          "bars",
+          "intensity",
+          "activeParts"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "loop": {
+      "default": true,
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "text",
+    "timeSignature",
+    "requiredInstruments",
+    "prohibitedElements",
+    "loop"
+  ],
+  "additionalProperties": false
+}
